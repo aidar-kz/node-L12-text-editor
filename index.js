@@ -1,4 +1,17 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const documentRouter = require("./routes/documents.js");
+
+const dbURL = "mongodb://localhost/text-editor";
+
+mongoose
+  .connect(dbURL)
+  .then((mongoose) => {
+    const connection = mongoose.connections[0];
+    const { host, port, name } = connection;
+    console.log(`${host}:${port}/${name}`);
+  })
+  .catch((error) => console.log(error));
 
 const app = express();
 app.engine("ejs", require("ejs-locals"));
@@ -12,15 +25,8 @@ app.listen(PORT, () => {
 
 app.use("/bootstrap", express.static("./node_modules/bootstrap"));
 app.use("/icons", express.static("./node_modules/material-icons"));
+app.use("/documents", documentRouter);
 
 app.get("/", (req, res) => {
   res.render("index", { title: "Все документы" });
-});
-
-app.get("/documents/new", (req, res) => {
-  res.render("doc-new", { title: "Новый документ" });
-});
-
-app.post("/documents", (req, res) => {
-  console.log(req.body);
 });
