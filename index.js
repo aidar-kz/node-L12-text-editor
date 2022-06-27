@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 app.engine("ejs", require("ejs-locals"));
 app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -18,4 +19,8 @@ app.get("/", (req, res) => {
 
 app.get("/documents/new", (req, res) => {
   res.render("doc-new", { title: "Новый документ" });
+});
+
+app.post("/documents", (req, res) => {
+  console.log(req.body);
 });
