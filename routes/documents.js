@@ -15,4 +15,14 @@ router.post("/", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+router.get("/:slug", async (req, res) => {
+  const { slug } = req.params;
+  const document = await Document.findOne({ slug });
+  if (document) {
+    res.render("doc-view", { document, title: document.title });
+  } else {
+    res.redirect("/");
+  }
+});
+
 module.exports = router;
