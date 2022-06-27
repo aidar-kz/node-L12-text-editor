@@ -1,0 +1,20 @@
+<div class="container">
+  <h1><%= title %></h1>
+
+  <form action="/documents" method="post">
+    <div class="mb-3">
+      <label for="title" class="form-label">Заголовок</label>
+      <input type="text" name="title" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="text" class="form-label">Текст</label>
+      <textarea name="text" cols="30" rows="10" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <a href="/" class="btn btn-warning">Отмена</a>
+      <button class="btn-btn-primary ms-2">Сохранить</button>
+    </div>
+  </form>
+</div>

@@ -10,7 +10,12 @@ app.listen(PORT, () => {
 });
 
 app.use("/bootstrap", express.static("./node_modules/bootstrap"));
+app.use("/icons", express.static("./node_modules/material-icons"));
 
 app.get("/", (req, res) => {
   res.render("index", { title: "Все документы" });
+});
+
+app.get("/documents/new", (req, res) => {
+  res.render("doc-new", { title: "Новый документ" });
 });
