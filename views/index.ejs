@@ -7,4 +7,21 @@
     <i class="material-icons">add_circle</i>
     <span class="ms-2">Создать документ</span>
   </a>
+
+  <div class="row mt-3 g-3">
+    <% if (documents.length < 1) { %>
+    <p>Документов нет, вы можете создать новый</p>
+    <% } else { documents.forEach(document => { %>
+    <div class="col col-md-4 d-flex">
+      <div class="card">
+        <div class="card-header"><%= document.timeCreated %></div>
+        <div class="card-body">
+          <h5 class="card-title"><%= document.title %></h5>
+          <p class="card-text"><%= document.text %></p>
+          <a href="<%= '/documents/' + document.slug %>">Смотреть</a>
+        </div>
+      </div>
+    </div>
+    <% }) } %>
+  </div>
 </div>

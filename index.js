@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const documentRouter = require("./routes/documents.js");
+const Document = require("./models/Documents.js");
 
 const dbURL = "mongodb://localhost/text-editor";
 
@@ -27,6 +28,7 @@ app.use("/bootstrap", express.static("./node_modules/bootstrap"));
 app.use("/icons", express.static("./node_modules/material-icons"));
 app.use("/documents", documentRouter);
 
-app.get("/", (req, res) => {
-  res.render("index", { title: "Все документы" });
+app.get("/", async (req, res) => {
+  const documents = await Document.find();
+  res.render("index", { title: "Все документы", documents });
 });
