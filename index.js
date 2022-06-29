@@ -29,6 +29,7 @@ app.listen(PORT, () => {
 app.use(express.static("./public"));
 app.use("/bootstrap", express.static("./node_modules/bootstrap"));
 app.use("/icons", express.static("./node_modules/material-icons"));
+app.use("/tinymce", express.static("./node_modules/tinymce"));
 app.use("/documents", documentRouter);
 
 app.get("/", async (req, res) => {

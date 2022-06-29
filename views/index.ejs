@@ -57,8 +57,9 @@
         <div class="card-body">
           <h5 class="card-title"><%= document.title %></h5>
           <p class="card-text">
-            <%= document.text.substring(0, 100) + '...' %>
+            <%- document.text.substring(0, 100) + '...' %>
           </p>
+          <br />
           <a
             href="<%= '/documents/' + document.slug %>"
             class="btn btn-outline-primary"
