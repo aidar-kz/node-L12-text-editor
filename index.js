@@ -9,6 +9,9 @@ const MongoStore = require("connect-mongo");
 const documentRouter = require("./routes/documents.js");
 const Document = require("./models/Documents.js");
 
+const userRouter = require("./routes/users.js");
+const User = require("./models/User.js");
+
 const dbURL = "mongodb://localhost/text-editor";
 
 mongoose
@@ -34,6 +37,13 @@ app.use(
   })
 );
 app.use(passport.authenticate("session"));
+app.use((req, res, next) => {
+  const msgs = req.session.messages || [];
+  res.locals.messages = msgs;
+  res.locals.hasMessages = !!msgs.length;
+  req.session.messages = [];
+  next();
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -45,8 +55,11 @@ app.use("/bootstrap", express.static("./node_modules/bootstrap"));
 app.use("/icons", express.static("./node_modules/material-icons"));
 app.use("/tinymce", express.static("./node_modules/tinymce"));
 app.use("/documents", documentRouter);
+app.use("/users", userRouter);
 
 app.get("/", async (req, res) => {
-  const documents = await Document.find();
-  res.render("index", { title: "Все документы", documents });
+  if (!req.user) return res.render("user-login", { title: "Вход" });
+  const user = await User.findOne({ email: req.user.email });
+  const documents = await Document.find({ userId: req.user.id });
+  res.render("index", { user, documents, title: "Все документы", documents });
 });

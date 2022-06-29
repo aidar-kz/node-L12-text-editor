@@ -8,7 +8,7 @@ router.get("/new", (req, res) => {
 
 router.post("/", (req, res) => {
   const { title, text } = req.body;
-  const document = new Document({ title, text });
+  const document = new Document({ title, text, userId: req.user.id });
   document
     .save()
     .then((document) => res.redirect(`documents/${document.slug}`))

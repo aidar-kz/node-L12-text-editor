@@ -12,6 +12,30 @@
     <title><%= title %></title>
   </head>
   <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand">Text Editor</a>
+
+        <% if (typeof user !== 'undefined') { %>
+        <div class="d-flex align-items-center">
+          <i class="material-icons">person</i>
+          <span><%= user.firstname %></span>
+          <form action="/users/logout" method="post">
+            <button class="btn btn-flat d-flex">
+              <i class="material-icons">logout</i>
+              <span class="ms-1">Выйти</span>
+            </button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+    </nav>
+
+    <% if (hasMessages) { %> <% messages.forEach(message => { %>
+    <div class="container alert alert-danger"><%= message %></div>
+    <% }) %> <% } %>
+
+    <br />
     <%- body %>
 
     <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

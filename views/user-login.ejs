@@ -1,0 +1,44 @@
+<% layout('default') %>
+
+<div class="container p-5">
+  <div class="col-10 col-lg-3 mx-auto">
+    <h1>Вход</h1>
+
+    <div class="card">
+      <div class="card-body">
+        <form action="/users/login" method="post">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              autocomplete="email"
+              required
+              autofocus
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              autocomplete="password"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-success">Войти</button>
+          </div>
+        </form>
+
+        <hr />
+
+        <p>Нет учетной записи? <a href="/users/register">Регистрация</a></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,10 @@ const slug = require("mongoose-slug-generator");
 
 mongoose.plugin(slug);
 const documentSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
