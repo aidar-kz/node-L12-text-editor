@@ -51,4 +51,10 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  await Document.findByIdAndDelete(id);
+  res.redirect("/");
+});
+
 module.exports = router;
