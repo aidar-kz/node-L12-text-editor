@@ -13,12 +13,23 @@
     <p>Документов нет, вы можете создать новый</p>
     <% } else { documents.forEach(document => { %>
     <div class="col col-md-4 d-flex">
-      <div class="card">
-        <div class="card-header"><%= document.timeCreated %></div>
+      <div class="card" style="width: 100%">
+        <div class="card-header">
+          <!-- <%= document.timeCreated.toLocaleString('en-GB') %> -->
+          <%= new Intl.DateTimeFormat('ru-RU', { dateStyle: 'full', timeStyle:
+          'short'}).format(document.timeCreated) %>
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= document.title %></h5>
-          <p class="card-text"><%= document.text %></p>
-          <a href="<%= '/documents/' + document.slug %>">Смотреть</a>
+          <p class="card-text">
+            <%= document.text.substring(0, 100) + '...' %>
+          </p>
+          <a
+            href="<%= '/documents/' + document.slug %>"
+            class="btn btn-outline-primary"
+          >
+            Читать далее
+          </a>
         </div>
       </div>
     </div>
