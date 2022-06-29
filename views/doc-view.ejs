@@ -1,6 +1,20 @@
 <% layout('default') %>
 
 <div class="container p-5">
-  <h1><%= document.title %></h1>
-  <p><%= document.text %></p>
+  <div class="row">
+    <div>
+      <a
+        href="/"
+        class="rounded-pill shadow p-2 pe-3 d-inline-flex text-decoration-none"
+      >
+        <i class="material-icons">arrow_left</i>
+        <span class="ms-1">Все новости</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <h1><%= document.title %></h1>
+    <p><%= document.text %></p>
+  </div>
 </div>
