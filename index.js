@@ -1,6 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+
+const session = require("express-session");
+const passport = require("passport");
+const MongoStore = require("connect-mongo");
+
 const documentRouter = require("./routes/documents.js");
 const Document = require("./models/Documents.js");
 
@@ -20,6 +25,15 @@ app.engine("ejs", require("ejs-locals"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(
+  session({
+    secret: "secret cat",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: dbURL }),
+  })
+);
+app.use(passport.authenticate("session"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
