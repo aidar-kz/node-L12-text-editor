@@ -25,4 +25,30 @@ router.get("/:slug", async (req, res) => {
   }
 });
 
+router.get("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const document = await Document.findById(id);
+  res.render("doc-edit", {
+    document,
+    title: `Редактирование документа "${document.title}"`,
+  });
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  req.document = await Document.findById(id);
+  let document = req.document;
+  const { title, text } = req.body;
+  document.title = title;
+  document.text = text;
+
+  try {
+    document = await document.save();
+    res.redirect(`/documents/${document.slug}`);
+  } catch (error) {
+    console.log(error.message);
+    res.redirect(`/documents/edit/${document.id}`);
+  }
+});
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 const documentRouter = require("./routes/documents.js");
 const Document = require("./models/Documents.js");
 
@@ -18,12 +19,14 @@ const app = express();
 app.engine("ejs", require("ejs-locals"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер слушает порт ${PORT}`);
 });
 
+app.use(express.static("./public"));
 app.use("/bootstrap", express.static("./node_modules/bootstrap"));
 app.use("/icons", express.static("./node_modules/material-icons"));
 app.use("/documents", documentRouter);

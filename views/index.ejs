@@ -14,11 +14,46 @@
     <% } else { documents.forEach(document => { %>
     <div class="col col-md-4 d-flex">
       <div class="card" style="width: 100%">
-        <div class="card-header">
+        <div
+          class="card-header d-inline-flex justify-content-between align-items-center"
+        >
           <!-- <%= document.timeCreated.toLocaleString('en-GB') %> -->
           <%= new Intl.DateTimeFormat('ru-RU', { dateStyle: 'full', timeStyle:
           'short'}).format(document.timeCreated) %>
+
+          <div class="dropdown">
+            <button
+              class="btn btn-sm dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="material-icons">more_vert</i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="/documents/edit/<%= document.id %>"
+                  >Редактировать</a
+                >
+              </li>
+
+              <form
+                method="POST"
+                action="/documents/<%= document.id %>?_method=DELETE"
+              >
+                <li>
+                  <button class="dropdown-item text-danger" href="#">
+                    Удалить
+                  </button>
+                </li>
+              </form>
+            </ul>
+          </div>
         </div>
+
         <div class="card-body">
           <h5 class="card-title"><%= document.title %></h5>
           <p class="card-text">
